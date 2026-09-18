@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNEAKER BRAND | Authentic Premium Streetwear</title>
+    <meta name="description" content="Découvrez une sélection de sneakers originales pensées pour ceux qui veulent marquer leur style.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">BRAND</div>
+            <div class="nav-links">
+                <a href="#hero">Accueil</a>
+                <a href="#collections">Collections</a>
+                <a href="#products">Sneakers</a>
+                <a href="#edition">Édition</a>
+                <a href="#about">À propos</a>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" aria-label="Recherche">🔍</button>
+                <button class="icon-btn" aria-label="Panier">🛒</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title reveal-text">Pas juste une paire.<br><span class="text-accent">Une signature.</span></h1>
+                    <p class="hero-subtitle reveal-up">Découvre une sélection de sneakers originales pensées pour ceux qui veulent marquer leur style.</p>
+                    <div class="hero-actions reveal-up delay-1">
+                        <button class="btn btn-primary">Découvrir la collection</button>
+                        <button class="btn btn-secondary">Voir les nouveautés</button>
+                    </div>
+                </div>
+                <div class="hero-visual reveal-scale">
+                    <!-- Placeholder spécifique pour le hero -->
+                    <img src="https://placehold.co/1000x800/ffffff/0033cc?text=Nike+Air+Jordan+4+Retro+Blue" alt="Nike Air Jordan 4 Retro" class="hero-image parallax">
+                    <div class="hero-backdrop"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Collections Section -->
+        <section id="collections" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title reveal-up">Nos collections</h2>
+                <div class="filters reveal-up delay-1" id="collection-filters">
+                    <button class="filter-btn active" data-filter="all">Toutes</button>
+                    <button class="filter-btn" data-filter="Premium">Premium</button>
+                    <button class="filter-btn" data-filter="Légende">Légende</button>
+                    <button class="filter-btn" data-filter="Standard">Standard</button>
+                </div>
+                <!-- Généré via JS -->
+                <div id="collections-grid" class="products-grid mt-4"></div>
+            </div>
+        </section>
+
+        <!-- 3. Produits du Moment Section -->
+        <section id="products" class="section bg-white">
+            <div class="section-container">
+                <h2 class="section-title reveal-up">Les paires du moment</h2>
+                <!-- Généré via JS -->
+                <div id="products-grid" class="products-grid"></div>
+            </div>
+        </section>
+
+        <!-- 4. SECTION ÉDITION (WOW) -->
+        <section id="edition" class="section-edition">
+            <div class="edition-background parallax-bg"></div>
+            <div class="edition-container">
+                <div class="edition-content reveal-left">
+                    <p class="edition-tag">ÉDITION LIMITÉE</p>
+                    <h2 class="edition-title">Certaines paires<br>se portent.<br>D'autres se<br>remarquent.</h2>
+                    <button class="btn btn-accent mt-4">Découvrir la paire</button>
+                </div>
+                <div class="edition-visual reveal-right">
+                    <!-- Placeholder pour une vraie photo ou vidéo -->
+                    <div class="edition-media-wrapper">
+                        <img src="https://placehold.co/800x1000/002288/ffffff?text=Travis+Scott+x+Air+Jordan+1+Low" alt="Travis Scott Air Jordan 1 Low" class="edition-image parallax">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Pourquoi Nous ? -->
+        <section id="about" class="section bg-light">
+            <div class="section-container">
+                <div class="features-grid">
+                    <div class="feature-card reveal-up">
+                        <h3>Authentique</h3>
+                        <p>Des sneakers originales et des modèles clairement identifiés.</p>
+                    </div>
+                    <div class="feature-card reveal-up delay-1">
+                        <h3>Sélection</h3>
+                        <p>Une sélection pensée autour des modèles les plus recherchés.</p>
+                    </div>
+                    <div class="feature-card reveal-up delay-2">
+                        <h3>Style</h3>
+                        <p>Des paires adaptées à différents styles et univers urbains.</p>
+                    </div>
+                    <div class="feature-card reveal-up delay-3">
+                        <h3>Confiance</h3>
+                        <p>Informations claires sur chaque produit et disponibilité.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Culture / Streetwear -->
+        <section class="section-culture">
+            <div class="culture-visual">
+                <img src="https://placehold.co/1920x800/111111/ffffff?text=Photographie+Lifestyle+Sneakers+Urbain" alt="Style Urbain" class="parallax">
+            </div>
+            <div class="culture-content">
+                <h2 class="reveal-up">UNE PAIRE.<br>UN STYLE.<br>UNE IDENTITÉ.</h2>
+                <p class="reveal-up delay-1">Plus qu'une chaussure, la sneaker est l'expression d'un mouvement. De la rue à la haute couture, elle redéfinit les codes de la culture urbaine contemporaine.</p>
+            </div>
+        </section>
+
+        <!-- 7. Drop du Moment (Nouveautés) -->
+        <section class="section bg-white">
+            <div class="section-container">
+                <h2 class="section-title reveal-up">Drop du moment</h2>
+                <!-- On réutilise le grid pour l'exemple, filtré dans JS -->
+                <div id="new-drops-grid" class="products-grid"></div>
+            </div>
+        </section>
+
+        <!-- 8. CTA Final -->
+        <section class="section-cta">
+            <div class="cta-content reveal-scale">
+                <h2>Ton prochain drop commence ici.</h2>
+                <p>Trouve la paire qui correspond à ton style.</p>
+                <button class="btn btn-primary mt-4">Explorer les sneakers</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-modal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-img" src="" alt="Sneaker">
+                </div>
+                <div class="modal-info">
+                    <span id="modal-brand" class="product-brand"></span>
+                    <h2 id="modal-name"></h2>
+                    <span id="modal-price" class="product-price-large"></span>
+                    <p class="modal-desc">Une sneaker iconique conçue pour ceux qui ne font aucun compromis sur le style et le confort.</p>
+                    
+                    <div class="size-selector">
+                        <h4>Sélectionnez votre taille (EU)</h4>
+                        <div class="sizes-grid" id="modal-sizes">
+                            <button class="size-btn">40</button>
+                            <button class="size-btn">41</button>
+                            <button class="size-btn">42</button>
+                            <button class="size-btn">43</button>
+                            <button class="size-btn">44</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; width: 100%;">
+                        <button id="modal-add-btn" class="btn btn-secondary" style="flex: 1;">Ajouter au panier</button>
+                        <button id="modal-order-btn" class="btn btn-primary" style="flex: 1;">Commander</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Votre Panier</h2>
+            <button class="cart-close" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Items du panier -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total-price">0 €</span>
+            </div>
+            <button class="btn btn-primary w-100" id="checkout-btn">Commander</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="modal-overlay"></div>
+
+    <!-- Order Form Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" id="close-order">&times;</button>
+            <div class="modal-body" style="padding: 2rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--c-blue-primary);">Finaliser la commande</h2>
+                
+                <div class="order-summary-box" style="background: var(--c-off-white); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h4 id="order-summary-product"></h4>
+                    <p id="order-summary-size" style="font-size:0.9rem; color:var(--c-grey);"></p>
+                    <p id="order-summary-price" style="font-weight:bold;"></p>
+                </div>
+
+                <form id="order-form">
+                    <h4 style="margin-bottom:0.5rem;">Informations Personnelles</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" name="firstname" placeholder="Prénom" required class="form-input">
+                        <input type="text" name="lastname" placeholder="Nom" required class="form-input">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" name="phone" placeholder="Téléphone" required class="form-input">
+                        <input type="text" name="whatsapp" placeholder="N° WhatsApp (ex: +226...)" required class="form-input">
+                    </div>
+                    <input type="email" name="email" placeholder="Adresse e-mail" required class="form-input w-100" style="margin-bottom: 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <input type="text" name="city" placeholder="Ville" required class="form-input">
+                        <input type="text" name="country" placeholder="Pays" value="Burkina Faso" required class="form-input">
+                    </div>
+
+                    <h4 style="margin-bottom:0.5rem;">Livraison</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" name="shipping-city" placeholder="Ville de livraison" required class="form-input">
+                        <input type="text" name="shipping-address" placeholder="Lieu de livraison" required class="form-input">
+                    </div>
+
+                    <h4 style="margin-bottom:0.5rem;">Contact</h4>
+                    <select name="contact-method" required class="form-input w-100" style="margin-bottom: 2rem;">
+                        <option value="">Comment souhaitez-vous être contacté ?</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="telephone">Appel téléphonique</option>
+                        <option value="email">Email</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary w-100">Confirmer la commande</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem 2rem;">
+            <button class="modal-close" id="close-confirm">&times;</button>
+            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+            <h2 style="color: var(--c-blue-primary); margin-bottom: 1rem;">Commande enregistrée</h2>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Merci <strong id="confirm-name"></strong> ! Ta demande concernant la <strong id="confirm-product"></strong> a bien été enregistrée.</p>
+            
+            <div style="background: var(--c-off-white); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: left;">
+                <p><strong>Pointure :</strong> <span id="confirm-size"></span></p>
+                <p><strong>Quantité :</strong> <span id="confirm-qty"></span></p>
+                <p><strong>Total :</strong> <span id="confirm-price"></span></p>
+            </div>
+            
+            <p style="color: var(--c-grey); margin-bottom: 2rem;">Nous avons bien reçu votre demande. Vous pouvez terminer ici, ou nous envoyer un message sur WhatsApp pour accélérer le traitement.</p>
+            
+            <div style="display: flex; gap: 1rem; width: 100%;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('confirm-modal').classList.remove('active'); document.getElementById('cart-overlay').classList.remove('active');">Terminer</button>
+                <a id="whatsapp-continue-btn" href="#" target="_blank" class="btn btn-primary" style="flex: 1; background: #25D366; border-color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center;">Continuer sur WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="section bg-light" style="text-align: center;">
+        <div class="section-container">
+            <h2 class="section-title reveal-up">Contact & Livraison</h2>
+            <p class="reveal-up delay-1" style="max-width:600px; margin: 0 auto 2rem;">Nous livrons partout au Burkina Faso et à l'international. Contactez-nous pour réserver votre paire ou poser vos questions.</p>
+            <div class="reveal-up delay-2" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://wa.me/22657138126?text=Bonjour,%20je%20suis%20intéressé%20par%20une%20paire%20de%20sneakers." target="_blank" class="btn btn-accent" style="background:#25D366;">WhatsApp : +226 57 13 81 26</a>
+                <a href="mailto:tuinaalex685@gmail.com" class="btn btn-primary">Email : tuinaalex685@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">BRAND</div>
+                <p>Authentic Premium Streetwear.<br>Burkina Faso</p>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Accueil</a>
+                <a href="#collections">Collections</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
