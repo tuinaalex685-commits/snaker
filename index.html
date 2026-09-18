@@ -175,19 +175,113 @@
                     
                     <div class="size-selector">
                         <h4>Sélectionnez votre taille (EU)</h4>
-                        <div class="sizes-grid" id="modal-sizes">
-                            <button class="size-btn">40</button>
-                            <button class="size-btn">41</button>
-                            <button class="size-btn">42</button>
-                            <button class="size-btn">43</button>
-                            <button class="size-btn">44</button>
-                        </div>
+                        <div class="sizes-grid" id="modal-sizes"></div>
                     </div>
                     <div style="display: flex; gap: 1rem; margin-top: 1.5rem; width: 100%;">
                         <button id="modal-add-btn" class="btn btn-secondary" style="flex: 1;">Ajouter au panier</button>
                         <button id="modal-order-btn" class="btn btn-primary" style="flex: 1;">Commander</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== MODAL RÉSERVATION PREMIUM ===================== -->
+    <div id="reservation-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width:640px;">
+            <button class="modal-close" id="close-reservation">&times;</button>
+            <div class="modal-body" style="flex-direction:column; padding:2rem;">
+                <!-- En-tête Premium -->
+                <div style="display:flex; align-items:center; gap:1.2rem; margin-bottom:1.5rem; padding-bottom:1.2rem; border-bottom:2px solid var(--c-blue-light);">
+                    <img id="res-img" src="" alt="" style="width:80px; height:80px; object-fit:cover; border-radius:8px; mix-blend-mode:multiply; background:var(--c-off-white);">
+                    <div>
+                        <span style="display:inline-block; background:var(--c-blue-primary); color:#fff; font-size:0.7rem; font-weight:700; padding:2px 10px; border-radius:20px; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">⭐ PREMIUM</span>
+                        <div style="font-weight:700; font-size:1rem;" id="res-name"></div>
+                        <div style="color:var(--c-grey); font-size:0.85rem;" id="res-brand"></div>
+                        <div style="font-weight:700; color:var(--c-blue-primary); margin-top:4px;" id="res-price"></div>
+                    </div>
+                </div>
+
+                <h2 style="color:var(--c-blue-primary); margin-bottom:1.5rem; font-size:1.4rem;">Réserver cette paire</h2>
+
+                <form id="reservation-form" novalidate>
+                    <!-- Champs cachés capture automatique produit -->
+                    <input type="hidden" name="marque" id="res-product-brand">
+                    <input type="hidden" name="modele" id="res-product-model">
+                    <input type="hidden" name="taille" id="res-product-size">
+                    <input type="hidden" name="quantite" id="res-product-quantity">
+                    <input type="hidden" name="prix_total" id="res-product-price">
+
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Informations personnelles</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <input type="text" name="firstname" placeholder="Prénom *" required class="form-input">
+                        <input type="text" name="lastname" placeholder="Nom *" required class="form-input">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <input type="email" name="email" placeholder="Email *" required class="form-input">
+                        <input type="text" name="phone" placeholder="Téléphone *" required class="form-input">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+                        <input type="text" name="whatsapp" placeholder="WhatsApp (ex: +226…) *" required class="form-input">
+                        <input type="text" name="city" placeholder="Ville *" required class="form-input">
+                    </div>
+                    <input type="text" name="country" placeholder="Pays" value="Burkina Faso" class="form-input w-100" style="margin-bottom:1.5rem;">
+
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Informations de réservation</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <div>
+                            <label style="font-size:0.8rem; color:var(--c-grey); margin-bottom:4px; display:block;">Nombre de paires *</label>
+                            <input type="number" name="res-quantity" min="1" max="10" value="1" required class="form-input w-100">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem; color:var(--c-grey); margin-bottom:4px; display:block;">Taille souhaitée (EU)</label>
+                            <input type="text" name="res-size" placeholder="Ex: 42" class="form-input w-100">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="font-size:0.8rem; color:var(--c-grey); margin-bottom:4px; display:block;">Date souhaitée</label>
+                        <input type="date" name="res-date" class="form-input w-100">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <input type="text" name="res-city" placeholder="Ville de récupération/livraison" class="form-input">
+                        <input type="text" name="res-address" placeholder="Adresse / lieu" class="form-input">
+                    </div>
+                    <textarea name="res-notes" placeholder="Informations complémentaires…" class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
+
+                    <h4 style="margin-bottom:0.5rem; color:var(--c-grey-dark);">Contact préféré</h4>
+                    <select name="contact-method" required class="form-input w-100" style="margin-bottom:2rem;">
+                        <option value="">Comment vous contacter ?</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="telephone">Appel téléphonique</option>
+                        <option value="email">Email</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary w-100" id="res-submit-btn"
+                        style="background: linear-gradient(135deg, var(--c-blue-primary), var(--c-blue-dark));">
+                        ⭐ Envoyer ma réservation
+                    </button>
+                    <p id="res-error-msg" style="color:#d63031; font-size:0.85rem; margin-top:0.75rem; display:none;"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== MODAL CONFIRMATION RÉSERVATION PREMIUM ===================== -->
+    <div id="res-confirm-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width:480px; text-align:center; padding:3rem 2rem;">
+            <button class="modal-close" id="close-res-confirm">&times;</button>
+            <div style="font-size:3rem; margin-bottom:1rem;">🏆</div>
+            <h2 style="color:var(--c-blue-primary); margin-bottom:0.75rem;">Réservation envoyée !</h2>
+            <p style="font-size:1.05rem; margin-bottom:1.5rem;">Merci <strong id="res-confirm-name"></strong> ! Ta demande de réservation pour la <strong id="res-confirm-product"></strong> a bien été enregistrée.</p>
+            <div style="background:var(--c-off-white); padding:1rem; border-radius:8px; margin-bottom:1.5rem; text-align:left;">
+                <p><strong>Taille :</strong> <span id="res-confirm-size"></span></p>
+                <p><strong>Quantité :</strong> <span id="res-confirm-qty"></span></p>
+                <p><strong>Date souhaitée :</strong> <span id="res-confirm-date"></span></p>
+            </div>
+            <p style="color:var(--c-grey); margin-bottom:2rem; font-size:0.95rem;">Nous vous contacterons très rapidement pour confirmer la disponibilité et les modalités.</p>
+            <div style="display:flex; gap:1rem; width:100%;">
+                <button class="btn btn-secondary" style="flex:1;" id="res-close-btn">Terminer</button>
+                <a id="res-whatsapp-btn" href="#" target="_blank" class="btn btn-primary" style="flex:1; background:#25D366; border-color:#25D366; text-decoration:none; display:flex; align-items:center; justify-content:center;">Continuer sur WhatsApp</a>
             </div>
         </div>
     </div>
@@ -225,6 +319,13 @@
                 </div>
 
                 <form id="order-form">
+                    <!-- Champs cachés capture automatique produit -->
+                    <input type="hidden" name="marque" id="order-product-brand">
+                    <input type="hidden" name="modele" id="order-product-model">
+                    <input type="hidden" name="taille" id="order-product-size">
+                    <input type="hidden" name="quantite" id="order-product-quantity">
+                    <input type="hidden" name="prix_total" id="order-product-total-price">
+
                     <h4 style="margin-bottom:0.5rem;">Informations Personnelles</h4>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                         <input type="text" name="firstname" placeholder="Prénom" required class="form-input">

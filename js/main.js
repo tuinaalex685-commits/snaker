@@ -302,21 +302,86 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleCart();
         });
 
-        // Bouton Commander direct
+        // Bouton Commander direct / Réserver
         const orderBtn = document.getElementById('modal-order-btn');
         const newOrderBtn = orderBtn.cloneNode(true);
         orderBtn.parentNode.replaceChild(newOrderBtn, orderBtn);
-        newOrderBtn.addEventListener('click', () => {
-            currentOrderContext = { ...currentProduct, size: selectedSize, quantity: selectedQty, isDirect: true };
+        
+        if (currentProduct.category === 'Premium') {
+            newAddBtn.style.display = 'none';
+            newOrderBtn.textContent = '⭐ Réserver cette paire';
+            newOrderBtn.addEventListener('click', () => {
+                // Remplir la modale de réservation premium
+                document.getElementById('res-img').src = currentProduct.image;
+                document.getElementById('res-name').textContent = currentProduct.name;
+                document.getElementById('res-brand').textContent = currentProduct.brand;
+                document.getElementById('res-price').textContent = formatPrice(currentProduct.price);
+                
+                // Pré-remplir les champs si possible
+                const sizeInput = document.querySelector('input[name="res-size"]');
+                const qtyInput = document.querySelector('input[name="res-quantity"]');
+                if (sizeInput) sizeInput.value = selectedSize;
+                if (qtyInput) qtyInput.value = selectedQty;
+                
+                const totalFCFA = Math.round(currentProduct.price * selectedQty * EUR_TO_FCFA);
+                currentOrderContext = { 
+                    ...currentProduct, 
+                    size: selectedSize, 
+                    quantity: selectedQty,
+                    totalPrice: totalFCFA,
+                    isDirect: true 
+                };
 
-            document.getElementById('order-summary-product').textContent = `${currentProduct.brand} — ${currentProduct.model} ${currentProduct.name}`;
-            document.getElementById('order-summary-size').textContent = `Pointure: ${selectedSize} | Qté: ${selectedQty} | Catégorie: ${currentProduct.category}`;
-            document.getElementById('order-summary-price').textContent = `Total: ${formatPrice(currentProduct.price * selectedQty)}`;
+                // Synchroniser les champs cachés réservation
+                const resBrand = document.getElementById('res-product-brand');
+                const resModel = document.getElementById('res-product-model');
+                const resSize = document.getElementById('res-product-size');
+                const resQty = document.getElementById('res-product-quantity');
+                const resPrice = document.getElementById('res-product-price');
+                if (resBrand) resBrand.value = currentProduct.brand;
+                if (resModel) resModel.value = `${currentProduct.model} ${currentProduct.name}`.trim();
+                if (resSize) resSize.value = selectedSize;
+                if (resQty) resQty.value = selectedQty;
+                if (resPrice) resPrice.value = totalFCFA;
+                
+                modal.classList.remove('active');
+                document.getElementById('reservation-modal').classList.add('active');
+            });
+        } else {
+            newAddBtn.style.display = 'block';
+            newOrderBtn.textContent = 'Commander';
+            newOrderBtn.addEventListener('click', () => {
+                const totalFCFA = Math.round(currentProduct.price * selectedQty * EUR_TO_FCFA);
+                currentOrderContext = { 
+                    ...currentProduct, 
+                    size: selectedSize, 
+                    quantity: selectedQty, 
+                    totalPrice: totalFCFA,
+                    isDirect: true 
+                };
 
-            modal.classList.remove('active');
-            document.getElementById('cart-overlay').classList.add('active');
-            document.getElementById('order-modal').classList.add('active');
-        });
+                // Synchroniser les champs cachés du formulaire de commande
+                const hiddenBrand = document.getElementById('order-product-brand');
+                const hiddenModel = document.getElementById('order-product-model');
+                const hiddenSize = document.getElementById('order-product-size');
+                const hiddenQty = document.getElementById('order-product-quantity');
+                const hiddenTotal = document.getElementById('order-product-total-price');
+
+                if (hiddenBrand) hiddenBrand.value = currentProduct.brand;
+                if (hiddenModel) hiddenModel.value = `${currentProduct.model} ${currentProduct.name}`.trim();
+                if (hiddenSize) hiddenSize.value = selectedSize;
+                if (hiddenQty) hiddenQty.value = selectedQty;
+                if (hiddenTotal) hiddenTotal.value = totalFCFA;
+
+                document.getElementById('order-summary-product').textContent = `${currentProduct.brand} — ${currentProduct.model} ${currentProduct.name}`;
+                document.getElementById('order-summary-size').textContent = `Pointure: ${selectedSize} | Qté: ${selectedQty} | Catégorie: ${currentProduct.category}`;
+                document.getElementById('order-summary-price').textContent = `Total: ${formatPrice(currentProduct.price * selectedQty)}`;
+
+                modal.classList.remove('active');
+                document.getElementById('cart-overlay').classList.add('active');
+                document.getElementById('order-modal').classList.add('active');
+            });
+        }
 
         modal.classList.add('active');
     }
@@ -429,15 +494,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('checkout-btn').addEventListener('click', () => {
         if(cart.length === 0) return;
-        currentOrderContext = { isDirect: false }; // Achat depuis le panier global
-        
-        // Résumé du panier
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const totalPriceEUR = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const totalPriceFCFA = Math.round(totalPriceEUR * EUR_TO_FCFA);
+
+        currentOrderContext = { 
+            isDirect: false,
+            brand: cart.map(i => i.brand).join(', '),
+            model: cart.map(i => `${i.model} ${i.name}`).join(' + '),
+            size: cart.map(i => `T${i.size}`).join(', '),
+            quantity: totalItems,
+            totalPrice: totalPriceFCFA
+        };
         
+        // Synchroniser les champs cachés
+        const hiddenBrand = document.getElementById('order-product-brand');
+        const hiddenModel = document.getElementById('order-product-model');
+        const hiddenSize = document.getElementById('order-product-size');
+        const hiddenQty = document.getElementById('order-product-quantity');
+        const hiddenTotal = document.getElementById('order-product-total-price');
+
+        if (hiddenBrand) hiddenBrand.value = currentOrderContext.brand;
+        if (hiddenModel) hiddenModel.value = currentOrderContext.model;
+        if (hiddenSize) hiddenSize.value = currentOrderContext.size;
+        if (hiddenQty) hiddenQty.value = currentOrderContext.quantity;
+        if (hiddenTotal) hiddenTotal.value = totalPriceFCFA;
+
+        // Résumé du panier
         document.getElementById('order-summary-product').textContent = `Panier (${totalItems} article${totalItems > 1 ? 's' : ''})`;
         document.getElementById('order-summary-size').textContent = cart.map(i => `${i.model} (T${i.size})`).join(', ');
-        document.getElementById('order-summary-price').textContent = `Total: ${formatPrice(totalPrice)}`;
+        document.getElementById('order-summary-price').textContent = `Total: ${formatPrice(totalPriceEUR)}`;
         
         cartSidebar.classList.remove('active');
         cartOverlay.classList.add('active');
@@ -459,22 +545,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const supabaseKey = 'sb_publishable_BZ-SiuAqgLDj29FuIngQew_zYq0bLr2';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Fonction de soumission Firebase/Supabase
-    const submitOrder = async (orderDetails) => {
-        console.log("=== ENVOI VERS SUPABASE ===");
+    // Fonction de soumission Supabase avec capture dynamique des colonnes
+    const submitOrder = async (orderPayload) => {
+        console.log("=== ENVOI VERS SUPABASE ===", orderPayload);
         
+        // 1. Insertion directe avec toutes les colonnes individuelles (nom, prenom, marque, modele, taille, quantite, prix_total, etc.)
         const { data, error } = await supabase
             .from('orders')
-            .insert([
-                {
-                    order_details: orderDetails,
-                    status: 'pending',
-                    created_at: new Date().toISOString()
-                }
-            ]);
+            .insert([orderPayload]);
 
         if (error) {
-            console.error("Erreur Supabase:", error);
+            console.error("Erreur Supabase lors de l'insertion:", error);
+
+            // Gestion de repli si certaines colonnes (marque, modele, etc.) ne sont pas encore créées dans la table Supabase
+            if (error.code === '42703' || (error.message && error.message.includes('does not exist'))) {
+                console.warn("Certaines colonnes sont absentes dans la table 'orders'. Repli automatique sur 'order_details'...", error);
+                const fallbackPayload = {
+                    order_details: orderPayload,
+                    status: orderPayload.status || 'pending',
+                    created_at: orderPayload.created_at || new Date().toISOString()
+                };
+                const fallbackRes = await supabase.from('orders').insert([fallbackPayload]);
+                if (fallbackRes.error) {
+                    throw new Error(fallbackRes.error.message);
+                }
+                return fallbackRes.data;
+            }
+
             throw new Error(error.message);
         }
         
@@ -490,76 +587,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(orderForm);
         
-        // Déterminer les items à commander (Direct ou Panier)
+        // 1. Capture dynamique des données produit
+        let marque = "";
+        let modele = "";
+        let taille = "";
+        let quantite = 1;
+        let prix_total = 0;
         let orderItems = [];
 
-        if (currentOrderContext.isDirect) {
+        if (currentOrderContext && currentOrderContext.isDirect) {
+            marque = currentOrderContext.brand || "";
+            modele = `${currentOrderContext.model || ""} ${currentOrderContext.name || ""}`.trim();
+            taille = String(currentOrderContext.size || "");
+            quantite = Number(currentOrderContext.quantity) || 1;
+            prix_total = Math.round((currentOrderContext.price * quantite) * EUR_TO_FCFA);
+
             orderItems = [{
                 product_id: currentOrderContext.id,
-                brand: currentOrderContext.brand,
-                product_name: currentOrderContext.model + ' ' + currentOrderContext.name,
+                brand: marque,
+                product_name: modele,
                 category: currentOrderContext.category,
-                size: currentOrderContext.size,
-                quantity: currentOrderContext.quantity,
-                unit_price: currentOrderContext.price * EUR_TO_FCFA,
-                total: (currentOrderContext.price * currentOrderContext.quantity) * EUR_TO_FCFA
+                size: taille,
+                quantity: quantite,
+                unit_price: Math.round(currentOrderContext.price * EUR_TO_FCFA),
+                total: prix_total
             }];
-        } else {
+        } else if (cart && cart.length > 0) {
+            marque = cart.map(i => i.brand).join(', ');
+            modele = cart.map(i => `${i.model} ${i.name}`).join(' + ');
+            taille = cart.map(i => `T${i.size}`).join(', ');
+            quantite = cart.reduce((sum, item) => sum + item.quantity, 0);
+            prix_total = Math.round(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * EUR_TO_FCFA);
+
             orderItems = cart.map(item => ({
                 product_id: item.id,
                 brand: item.brand,
-                product_name: item.model + ' ' + item.name,
+                product_name: `${item.model} ${item.name}`,
                 category: item.category,
                 size: item.size,
                 quantity: item.quantity,
-                unit_price: item.price * EUR_TO_FCFA,
-                total: (item.price * item.quantity) * EUR_TO_FCFA
+                unit_price: Math.round(item.price * EUR_TO_FCFA),
+                total: Math.round((item.price * item.quantity) * EUR_TO_FCFA)
             }));
+        } else {
+            marque = formData.get('marque') || "";
+            modele = formData.get('modele') || "";
+            taille = formData.get('taille') || "";
+            quantite = Number(formData.get('quantite')) || 1;
+            prix_total = Number(formData.get('prix_total')) || 0;
         }
-        
-        const orderDetails = {
-            client: {
-                nom: formData.get('lastname'),
-                prenom: formData.get('firstname'),
-                telephone: formData.get('phone'),
-                whatsapp: formData.get('whatsapp'),
-                email: formData.get('email'),
-                ville: formData.get('city'),
-                pays: formData.get('country')
+
+        // 2. Coordonnées client
+        const clientNom = formData.get('lastname') || "";
+        const clientPrenom = formData.get('firstname') || "";
+        const clientTelephone = formData.get('phone') || "";
+        const clientWhatsapp = formData.get('whatsapp') || "";
+        const clientEmail = formData.get('email') || "";
+        const clientVille = formData.get('city') || "";
+        const clientPays = formData.get('country') || "Burkina Faso";
+        const clientAdresse = formData.get('shipping-address') || formData.get('shipping-city') || "";
+
+        // 3. Objet complet envoyé à Supabase avec colonnes produit et client
+        const orderData = {
+            // Colonnes client
+            nom: clientNom,
+            prenom: clientPrenom,
+            telephone: clientTelephone,
+            whatsapp: clientWhatsapp,
+            email: clientEmail,
+            pays: clientPays,
+            ville: clientVille,
+            adresse: clientAdresse,
+
+            // Colonnes produit demandées
+            marque: marque,
+            modele: modele,
+            taille: taille,
+            quantite: quantite,
+            prix_total: prix_total,
+
+            // Objet structuré pour compatibilité JSON
+            order_details: {
+                client: {
+                    nom: clientNom,
+                    prenom: clientPrenom,
+                    telephone: clientTelephone,
+                    whatsapp: clientWhatsapp,
+                    email: clientEmail,
+                    ville: clientVille,
+                    pays: clientPays
+                },
+                livraison: {
+                    ville: formData.get('shipping-city'),
+                    adresse: formData.get('shipping-address'),
+                    informations_complementaires: formData.get('shipping-notes') || "",
+                    mode_contact: formData.get('contact-method')
+                },
+                produit: {
+                    marque: marque,
+                    modele: modele,
+                    taille: taille,
+                    quantite: quantite,
+                    prix_total: prix_total
+                },
+                commande: orderItems
             },
-            livraison: {
-                ville: formData.get('shipping-city'),
-                adresse: formData.get('shipping-address'),
-                informations_complementaires: "",
-                mode_contact: formData.get('contact-method')
-            },
-            commande: orderItems
+            status: 'pending',
+            created_at: new Date().toISOString()
         };
 
         try {
-            await submitOrder(orderDetails);
+            await submitOrder(orderData);
             
             // Succès
             orderModal.classList.remove('active');
             
             // Remplir la confirmation
-            document.getElementById('confirm-name').textContent = orderDetails.client.prenom;
-            document.getElementById('confirm-product').textContent = orderDetails.commande[0].product_name + (orderDetails.commande.length > 1 ? ` et ${orderDetails.commande.length - 1} autre(s)` : '');
-            document.getElementById('confirm-size').textContent = orderDetails.commande.map(i => i.size).join(', ');
-            document.getElementById('confirm-qty').textContent = orderDetails.commande.reduce((s, i) => s + i.quantity, 0);
+            document.getElementById('confirm-name').textContent = clientPrenom;
+            document.getElementById('confirm-product').textContent = modele;
+            document.getElementById('confirm-size').textContent = taille;
+            document.getElementById('confirm-qty').textContent = quantite;
             
-            const totalFCFA = orderDetails.commande.reduce((sum, item) => sum + item.total, 0);
-            const totalStr = new Intl.NumberFormat('fr-FR').format(totalFCFA) + ' FCFA';
+            const totalStr = new Intl.NumberFormat('fr-FR').format(prix_total) + ' FCFA';
             document.getElementById('confirm-price').textContent = totalStr;
             
             // Configurer le lien WhatsApp
             const waNumber = "22657138126";
-            const waMessage = `Bonjour, je viens d'effectuer une demande de commande sur votre site.\n\n*Client:* ${orderDetails.client.nom} ${orderDetails.client.prenom}\n*Produit:* ${orderDetails.commande[0].product_name}\n*Pointure:* ${orderDetails.commande[0].size}\n*Quantité:* ${orderDetails.commande[0].quantity}\n*Total:* ${totalStr}\n*Livraison:* ${orderDetails.livraison.ville}\n\nPouvez-vous me confirmer la disponibilité ?`;
+            const waMessage = `Bonjour, je viens d'effectuer une commande sur votre site.\n\n*Client:* ${clientNom} ${clientPrenom}\n*Marque:* ${marque}\n*Modèle:* ${modele}\n*Pointure:* ${taille}\n*Quantité:* ${quantite}\n*Total:* ${totalStr}\n*Livraison:* ${clientAdresse} (${clientVille})\n\nPouvez-vous me confirmer la disponibilité ?`;
             document.getElementById('whatsapp-continue-btn').href = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
             
             confirmModal.classList.add('active');
             
-            if (!currentOrderContext.isDirect) {
+            if (currentOrderContext && !currentOrderContext.isDirect) {
                 cart = [];
                 updateCartUI();
             }
@@ -569,6 +728,144 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Erreur lors de l'enregistrement de la commande. Veuillez vérifier votre connexion ou réessayer plus tard.\n\nDétails: " + error.message);
         } finally {
             btnSubmit.textContent = "Confirmer la commande";
+            btnSubmit.disabled = false;
+        }
+    });
+
+    // --- 5b. FORMULAIRE DE RÉSERVATION PREMIUM ---
+    const reservationModal = document.getElementById('reservation-modal');
+    const resConfirmModal = document.getElementById('res-confirm-modal');
+    const reservationForm = document.getElementById('reservation-form');
+
+    document.getElementById('close-reservation').addEventListener('click', () => {
+        reservationModal.classList.remove('active');
+    });
+
+    document.getElementById('close-res-confirm').addEventListener('click', () => {
+        resConfirmModal.classList.remove('active');
+    });
+
+    document.getElementById('res-close-btn').addEventListener('click', () => {
+        resConfirmModal.classList.remove('active');
+    });
+
+    reservationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btnSubmit = document.getElementById('res-submit-btn');
+        const errorMsg = document.getElementById('res-error-msg');
+        errorMsg.style.display = 'none';
+        
+        btnSubmit.textContent = "Envoi en cours...";
+        btnSubmit.disabled = true;
+
+        const formData = new FormData(reservationForm);
+        const reservationQuantity = parseInt(formData.get('res-quantity')) || 1;
+        const reservationSize = formData.get('res-size') || (currentOrderContext ? currentOrderContext.size : '');
+        
+        const marque = (currentOrderContext && currentOrderContext.brand) || formData.get('marque') || "";
+        const modele = (currentOrderContext && `${currentOrderContext.model} ${currentOrderContext.name}`) || formData.get('modele') || "";
+        const prixUnitaire = (currentOrderContext && currentOrderContext.price) || 0;
+        const prixTotalFCFA = Math.round(prixUnitaire * reservationQuantity * EUR_TO_FCFA);
+
+        const clientNom = formData.get('lastname') || "";
+        const clientPrenom = formData.get('firstname') || "";
+        const clientTelephone = formData.get('phone') || "";
+        const clientWhatsapp = formData.get('whatsapp') || "";
+        const clientEmail = formData.get('email') || "";
+        const clientVille = formData.get('city') || "";
+        const clientPays = formData.get('country') || "Burkina Faso";
+        const clientAdresse = formData.get('res-address') || formData.get('res-city') || "";
+
+        const orderData = {
+            // Colonnes client
+            nom: clientNom,
+            prenom: clientPrenom,
+            telephone: clientTelephone,
+            whatsapp: clientWhatsapp,
+            email: clientEmail,
+            pays: clientPays,
+            ville: clientVille,
+            adresse: clientAdresse,
+
+            // Colonnes produit demandées
+            marque: marque,
+            modele: modele,
+            taille: String(reservationSize),
+            quantite: reservationQuantity,
+            prix_total: prixTotalFCFA,
+
+            order_details: {
+                client: {
+                    nom: clientNom,
+                    prenom: clientPrenom,
+                    telephone: clientTelephone,
+                    whatsapp: clientWhatsapp,
+                    email: clientEmail,
+                    ville: clientVille,
+                    pays: clientPays
+                },
+                reservation_info: {
+                    reservation_quantity: reservationQuantity,
+                    reservation_size: reservationSize,
+                    reservation_date: formData.get('res-date'),
+                    ville_recuperation: formData.get('res-city'),
+                    adresse: formData.get('res-address'),
+                    informations_complementaires: formData.get('res-notes'),
+                    mode_contact: formData.get('contact-method')
+                },
+                produit: {
+                    marque: marque,
+                    modele: modele,
+                    taille: String(reservationSize),
+                    quantite: reservationQuantity,
+                    prix_total: prixTotalFCFA
+                },
+                commande: [{
+                    product_id: currentOrderContext ? currentOrderContext.id : '',
+                    brand: marque,
+                    product_name: modele,
+                    category: currentOrderContext ? currentOrderContext.category : 'Premium',
+                    quantity: reservationQuantity,
+                    unit_price: Math.round(prixUnitaire * EUR_TO_FCFA),
+                    total: prixTotalFCFA
+                }]
+            },
+            status: 'pending_reservation',
+            created_at: new Date().toISOString()
+        };
+
+        try {
+            await submitOrder(orderData);
+            
+            // Succès
+            reservationModal.classList.remove('active');
+            
+            // Remplir la confirmation
+            document.getElementById('res-confirm-name').textContent = clientPrenom;
+            document.getElementById('res-confirm-product').textContent = modele;
+            document.getElementById('res-confirm-size').textContent = reservationSize || 'N/A';
+            document.getElementById('res-confirm-qty').textContent = reservationQuantity;
+            
+            const dateObj = formData.get('res-date') ? new Date(formData.get('res-date')) : null;
+            document.getElementById('res-confirm-date').textContent = dateObj ? dateObj.toLocaleDateString('fr-FR') : 'Non précisée';
+            
+            // Configurer le lien WhatsApp
+            const waNumber = "22657138126";
+            const totalStr = new Intl.NumberFormat('fr-FR').format(prixTotalFCFA) + ' FCFA';
+            
+            const waMessage = `🔔 *NOUVELLE RÉSERVATION PREMIUM*\n\n*Client:* ${clientNom} ${clientPrenom}\n*Marque:* ${marque}\n*Modèle:* ${modele}\n*Taille:* ${reservationSize || 'N/A'}\n*Quantité:* ${reservationQuantity}\n*Prix Estimé:* ${totalStr}\n*Date souhaitée:* ${document.getElementById('res-confirm-date').textContent}\n*Ville:* ${clientVille}\n\nPouvez-vous me confirmer cette réservation ?`;
+            
+            document.getElementById('res-whatsapp-btn').href = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+            
+            resConfirmModal.classList.add('active');
+            reservationForm.reset();
+
+        } catch (error) {
+            errorMsg.textContent = "Erreur: " + error.message;
+            errorMsg.style.display = 'block';
+        } finally {
+            btnSubmit.textContent = "⭐ Envoyer ma réservation";
             btnSubmit.disabled = false;
         }
     });
