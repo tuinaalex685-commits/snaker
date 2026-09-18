@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SNEAKER BRAND | Authentic Premium Streetwear</title>
     <meta name="description" content="Découvrez une sélection de sneakers originales pensées pour ceux qui veulent marquer leur style.">
     <link rel="stylesheet" href="css/style.css">
@@ -24,9 +24,24 @@
             <div class="nav-actions">
                 <button class="icon-btn" aria-label="Recherche">🔍</button>
                 <button class="icon-btn" aria-label="Panier">🛒</button>
+                <!-- Hamburger visible sur mobile -->
+                <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" style="display:none;">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Menu mobile overlay -->
+    <div class="nav-mobile-menu" id="nav-mobile-menu">
+        <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Fermer">&times;</button>
+        <a href="#hero" class="nav-mobile-link">Accueil</a>
+        <a href="#collections" class="nav-mobile-link">Collections</a>
+        <a href="#products" class="nav-mobile-link">Sneakers</a>
+        <a href="#edition" class="nav-mobile-link">Édition</a>
+        <a href="#about" class="nav-mobile-link">À propos</a>
+        <a href="#contact" class="nav-mobile-link">Contact</a>
+    </div>
 
     <main>
         <!-- 1. Hero Section -->
@@ -156,7 +171,7 @@
                     <span id="modal-brand" class="product-brand"></span>
                     <h2 id="modal-name"></h2>
                     <span id="modal-price" class="product-price-large"></span>
-                    <p class="modal-desc">Une sneaker iconique conçue pour ceux qui ne font aucun compromis sur le style et le confort.</p>
+                    <p id="modal-desc" class="modal-desc"></p>
                     
                     <div class="size-selector">
                         <h4>Sélectionnez votre taille (EU)</h4>
@@ -189,7 +204,7 @@
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total</span>
-                <span id="cart-total-price">0 €</span>
+                <span id="cart-total-price">0 FCFA</span>
             </div>
             <button class="btn btn-primary w-100" id="checkout-btn">Commander</button>
         </div>
@@ -230,6 +245,7 @@
                         <input type="text" name="shipping-city" placeholder="Ville de livraison" required class="form-input">
                         <input type="text" name="shipping-address" placeholder="Lieu de livraison" required class="form-input">
                     </div>
+                    <textarea name="shipping-notes" placeholder="Informations complémentaires (quartier, repère, instructions...)" class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
 
                     <h4 style="margin-bottom:0.5rem;">Contact</h4>
                     <select name="contact-method" required class="form-input w-100" style="margin-bottom: 2rem;">

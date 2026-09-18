@@ -16,7 +16,7 @@ const products = [
         price: 189,
         available: true,
         sizes: [40, 41, 42, 43, 44],
-        description: "L'icône absolue. Le modèle historique qui a tout commencé, dans son coloris Chicago mythique.",
+        description: "L'icône absolue. Le modèle historique qui a tout commencé, dans son coloris Chicago mythique. Une sneaker qui transcende le sport pour devenir un symbole culturel mondial.",
         isNew: false,
         image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop"
     },
@@ -29,9 +29,9 @@ const products = [
         price: 129,
         available: true,
         sizes: [39, 40, 41, 42, 43],
-        description: "La silhouette incontournable et polyvalente pour un style quotidien impeccable.",
+        description: "La silhouette incontournable et polyvalente pour un style quotidien impeccable. Le Dunk Low Retro revisite les codes du basketball des années 80 avec une élégance moderne.",
         isNew: false,
-        image: "hero_sneaker_1789747450317.jpg"
+        image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "af1-07",
@@ -42,7 +42,7 @@ const products = [
         price: 119,
         available: true,
         sizes: [40, 41, 42, 43, 44, 45],
-        description: "Le grand classique indémodable, parfait pour accompagner toutes vos tenues.",
+        description: "Le grand classique indémodable, parfait pour accompagner toutes vos tenues. Plus de 40 ans d'histoire condensés dans une silhouette épurée qui ne vieillit jamais.",
         isNew: false,
         image: "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=600&auto=format&fit=crop"
     },
@@ -55,9 +55,9 @@ const products = [
         price: 120,
         available: true,
         sizes: [40, 41, 42],
-        description: "Héritage footballistique et icône de la culture urbaine. La Samba fait son grand retour.",
+        description: "Héritage footballistique et icône de la culture urbaine. La Samba fait son grand retour et s'impose comme le modèle phare de la culture streetwear contemporaine.",
         isNew: true,
-        image: "sneaker_side_view_1789747460956.jpg"
+        image: "https://images.unsplash.com/photo-1716838654-11379820804a?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "campus-00s",
@@ -68,9 +68,9 @@ const products = [
         price: 110,
         available: true,
         sizes: [41, 42, 43, 44],
-        description: "Volume XXL et vibe skate des années 2000. Le confort absolu.",
+        description: "Volume XXL et vibe skate des années 2000. Le Campus 00s offre un confort absolu et un style décontracté qui correspond parfaitement à la culture urbaine actuelle.",
         isNew: false,
-        image: "https://placehold.co/600x600/222222/ffffff?text=Adidas+Campus+00s"
+        image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "nb-9060",
@@ -81,9 +81,9 @@ const products = [
         price: 180,
         available: true,
         sizes: [40, 42, 43],
-        description: "Fusion entre l'héritage running 99X et une esthétique futuriste Y2K.",
+        description: "Fusion entre l'héritage running 99X et une esthétique futuriste Y2K. La 9060 repousse les limites du design avec ses matières superposées et sa semelle sculptée.",
         isNew: true,
-        image: "https://placehold.co/600x600/e0e0e0/333333?text=New+Balance+9060"
+        image: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "nb-2002r",
@@ -94,9 +94,9 @@ const products = [
         price: 150,
         available: true,
         sizes: [41, 42, 44],
-        description: "Matériaux déstructurés et confort exceptionnel grâce à l'amorti N-ergy.",
+        description: "Matériaux déstructurés et confort exceptionnel grâce à l'amorti N-ergy. La 2002R est la rencontre parfaite entre performance technique et esthétique premium.",
         isNew: false,
-        image: "https://placehold.co/600x600/d0d0d0/333333?text=New+Balance+2002R"
+        image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "asics-kayano",
@@ -107,9 +107,9 @@ const products = [
         price: 170,
         available: true,
         sizes: [40, 41, 42, 43],
-        description: "Le confort technique japonais dans une silhouette rétro-running très convoitée.",
+        description: "Le confort technique japonais dans une silhouette rétro-running très convoitée. La GEL-Kayano 14 est devenue un must-have pour les amateurs de sneakers lifestyle pointus.",
         isNew: true,
-        image: "https://placehold.co/600x600/1034a6/ffffff?text=ASICS+GEL-Kayano+14"
+        image: "https://images.unsplash.com/photo-1556906781-9a412961a2bd?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "salomon-xt6",
@@ -120,9 +120,9 @@ const products = [
         price: 180,
         available: true,
         sizes: [42, 43, 44],
-        description: "Performance trail reconnue, désormais icône du techwear urbain.",
+        description: "Performance trail reconnue, désormais icône du techwear urbain. La XT-6 est le choix des connaisseurs qui veulent allier fonctionnalité extrême et esthétique avant-gardiste.",
         isNew: false,
-        image: "https://placehold.co/600x600/444444/ffffff?text=Salomon+XT-6"
+        image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=600&auto=format&fit=crop"
     },
     {
         id: "converse-70",
@@ -133,9 +133,9 @@ const products = [
         price: 100,
         available: true,
         sizes: [38, 39, 40, 41, 42, 43, 44],
-        description: "L'originale, améliorée. Toile premium et semelle vintage.",
+        description: "L'originale, améliorée. Toile premium, rembourrage OrthoLite et semelle vintage pour un confort supérieur. Le Chuck 70 est l'expression la plus pure de l'authenticité.",
         isNew: false,
-        image: "https://placehold.co/600x600/f8e9a1/333333?text=Converse+Chuck+70"
+        image: "https://images.unsplash.com/photo-1514989940723-e8e51635b782?q=80&w=600&auto=format&fit=crop"
     }
 ];
 
@@ -212,38 +212,92 @@ document.addEventListener('DOMContentLoaded', () => {
         currentProduct = products.find(p => p.id === id);
         if(!currentProduct) return;
 
+        // Remplir toutes les infos du produit EXACT
         document.getElementById('modal-img').src = currentProduct.image;
+        document.getElementById('modal-img').alt = `${currentProduct.brand} ${currentProduct.model} ${currentProduct.name}`;
         document.getElementById('modal-brand').textContent = currentProduct.brand;
-        document.getElementById('modal-name').textContent = `${currentProduct.model} ${currentProduct.name}`;
+        document.getElementById('modal-name').textContent = `${currentProduct.model} — ${currentProduct.name}`;
         document.getElementById('modal-price').textContent = formatPrice(currentProduct.price);
         document.getElementById('modal-desc').textContent = currentProduct.description;
-        
-        // Rendu des tailles
-        const sizesContainer = document.getElementById('modal-sizes');
-        sizesContainer.innerHTML = currentProduct.sizes.map(size => `
-            <button class="size-btn">${size}</button>
-        `).join('');
 
-        // Sélection de la première taille par défaut
+        // Badge catégorie dans la modale
+        let categoryBadge = document.getElementById('modal-category');
+        if (!categoryBadge) {
+            categoryBadge = document.createElement('span');
+            categoryBadge.id = 'modal-category';
+            categoryBadge.style.cssText = 'display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem;';
+            document.getElementById('modal-brand').insertAdjacentElement('afterend', categoryBadge);
+        }
+        const catColors = { 'Premium': '#0033cc', 'Légende': '#ff6a00', 'Standard': '#00b894' };
+        categoryBadge.textContent = currentProduct.category;
+        categoryBadge.style.background = catColors[currentProduct.category] || '#666';
+        categoryBadge.style.color = '#fff';
+
+        // Disponibilité
+        let availBadge = document.getElementById('modal-availability');
+        if (!availBadge) {
+            availBadge = document.createElement('p');
+            availBadge.id = 'modal-availability';
+            availBadge.style.cssText = 'font-size:0.85rem; margin-bottom:0.5rem;';
+            document.getElementById('modal-price').insertAdjacentElement('afterend', availBadge);
+        }
+        availBadge.innerHTML = currentProduct.available
+            ? '<span style="color:#00b894;">✓ En stock</span>'
+            : '<span style="color:#d63031;">✗ Rupture de stock</span>';
+
+        // Rendu des tailles dynamiques
+        const sizesContainer = document.getElementById('modal-sizes');
+        sizesContainer.innerHTML = currentProduct.sizes.map(size =>
+            `<button class="size-btn">${size}</button>`
+        ).join('');
+
         let selectedSize = currentProduct.sizes[0];
         const sizeBtns = sizesContainer.querySelectorAll('.size-btn');
         if(sizeBtns.length > 0) sizeBtns[0].classList.add('active');
-
         sizeBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 sizeBtns.forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
                 selectedSize = parseInt(e.target.textContent);
+                updateModalTotal();
             });
         });
-        
-        // Bouton d'ajout au panier
+
+        // Sélecteur de quantité
+        let qtyWrapper = document.getElementById('modal-qty-wrapper');
+        if (!qtyWrapper) {
+            qtyWrapper = document.createElement('div');
+            qtyWrapper.id = 'modal-qty-wrapper';
+            qtyWrapper.style.cssText = 'display:flex; align-items:center; gap:0.75rem; margin-top:1rem;';
+            qtyWrapper.innerHTML = `
+                <span style="font-weight:600; font-size:0.9rem;">Quantité :</span>
+                <button id="modal-qty-minus" style="width:32px;height:32px;border-radius:50%;border:2px solid var(--c-blue-primary);background:transparent;color:var(--c-blue-primary);font-size:1.1rem;cursor:pointer;font-weight:700;">-</button>
+                <span id="modal-qty-val" style="font-weight:700; font-size:1.1rem; min-width:24px; text-align:center;">1</span>
+                <button id="modal-qty-plus" style="width:32px;height:32px;border-radius:50%;border:2px solid var(--c-blue-primary);background:transparent;color:var(--c-blue-primary);font-size:1.1rem;cursor:pointer;font-weight:700;">+</button>
+                <span id="modal-qty-total" style="margin-left:auto;font-weight:700;color:var(--c-blue-primary);"></span>
+            `;
+            sizesContainer.parentElement.insertAdjacentElement('afterend', qtyWrapper);
+        }
+        let selectedQty = 1;
+        document.getElementById('modal-qty-val').textContent = 1;
+        const updateModalTotal = () => {
+            document.getElementById('modal-qty-total').textContent = formatPrice(currentProduct.price * selectedQty);
+        };
+        updateModalTotal();
+
+        const qtyMinus = document.getElementById('modal-qty-minus').cloneNode(true);
+        const qtyPlus  = document.getElementById('modal-qty-plus').cloneNode(true);
+        document.getElementById('modal-qty-minus').replaceWith(qtyMinus);
+        document.getElementById('modal-qty-plus').replaceWith(qtyPlus);
+        qtyMinus.addEventListener('click', () => { if(selectedQty > 1) { selectedQty--; document.getElementById('modal-qty-val').textContent = selectedQty; updateModalTotal(); }});
+        qtyPlus.addEventListener('click',  () => { selectedQty++; document.getElementById('modal-qty-val').textContent = selectedQty; updateModalTotal(); });
+
+        // Bouton Ajouter au panier
         const addBtn = document.getElementById('modal-add-btn');
         const newAddBtn = addBtn.cloneNode(true);
         addBtn.parentNode.replaceChild(newAddBtn, addBtn);
-        
         newAddBtn.addEventListener('click', () => {
-            addToCart(currentProduct, selectedSize, 1);
+            addToCart(currentProduct, selectedSize, selectedQty);
             modal.classList.remove('active');
             toggleCart();
         });
@@ -252,18 +306,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderBtn = document.getElementById('modal-order-btn');
         const newOrderBtn = orderBtn.cloneNode(true);
         orderBtn.parentNode.replaceChild(newOrderBtn, orderBtn);
-
         newOrderBtn.addEventListener('click', () => {
-            // Achat direct sans passer par le panier global
-            currentOrderContext = { ...currentProduct, size: selectedSize, quantity: 1, isDirect: true };
-            
-            document.getElementById('order-summary-product').textContent = `${currentProduct.brand} ${currentProduct.model} ${currentProduct.name}`;
-            document.getElementById('order-summary-size').textContent = `Pointure: ${selectedSize} | Catégorie: ${currentProduct.category}`;
-            document.getElementById('order-summary-price').textContent = `Prix unitaire: ${formatPrice(currentProduct.price)}`;
-            
+            currentOrderContext = { ...currentProduct, size: selectedSize, quantity: selectedQty, isDirect: true };
+
+            document.getElementById('order-summary-product').textContent = `${currentProduct.brand} — ${currentProduct.model} ${currentProduct.name}`;
+            document.getElementById('order-summary-size').textContent = `Pointure: ${selectedSize} | Qté: ${selectedQty} | Catégorie: ${currentProduct.category}`;
+            document.getElementById('order-summary-price').textContent = `Total: ${formatPrice(currentProduct.price * selectedQty)}`;
+
             modal.classList.remove('active');
-            
-            // Ouvrir modal commande
             document.getElementById('cart-overlay').classList.add('active');
             document.getElementById('order-modal').classList.add('active');
         });
@@ -572,26 +622,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     observeElements();
 
-    // --- 8. PARALLAX & NAVBAR ---
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
-    });
+    // --- 9. MENU HAMBURGER MOBILE ---
+    const hamburgerBtn = document.getElementById('nav-hamburger');
+    const mobileMenu   = document.getElementById('nav-mobile-menu');
+    const mobileClose  = document.getElementById('nav-mobile-close');
 
-    const parallaxElements = document.querySelectorAll('.parallax');
-    const parallaxBgElements = document.querySelectorAll('.parallax-bg');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        parallaxElements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if(rect.top < window.innerHeight && rect.bottom > 0) {
-                el.style.transform = `translateY(${scrolled * 0.05}px)`;
-            }
+    // Afficher le hamburger seulement sur mobile/tablette
+    const showHamburger = () => {
+        if (window.innerWidth <= 992) {
+            hamburgerBtn.style.display = 'flex';
+        } else {
+            hamburgerBtn.style.display = 'none';
+            mobileMenu.classList.remove('open');
+        }
+    };
+    showHamburger();
+    window.addEventListener('resize', showHamburger);
+
+    hamburgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+    // Fermer le menu quand on clique un lien
+    document.querySelectorAll('.nav-mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
         });
-        parallaxBgElements.forEach(el => {
-            el.style.transform = `translateY(${scrolled * 0.1}px)`;
-        });
-    }, { passive: true });
+    });
 });
+
