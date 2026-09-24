@@ -566,36 +566,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const supabaseKey = 'sb_publishable_BZ-SiuAqgLDj29FuIngQew_zYq0bLr2';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Fonction de soumission Supabase avec capture dynamique des colonnes
+    // La table public.orders stocke les réponses du formulaire dans order_details (jsonb).
     const submitOrder = async (orderPayload) => {
-        console.log("=== ENVOI VERS SUPABASE ===", orderPayload);
-        
-        // 1. Insertion directe avec toutes les colonnes individuelles (nom, prenom, marque, modele, taille, quantite, prix_total, etc.)
+        const details = orderPayload?.order_details;
+        if (!details || typeof details !== 'object' || Array.isArray(details)) {
+            throw new Error("Les détails de la commande sont incomplets.");
+        }
+
+        // id et created_at sont générés par Supabase. N'envoyer que les colonnes
+        // réellement présentes dans la table : order_details et status.
+        const databaseRecord = {
+            order_details: details,
+            status: orderPayload.status || 'pending'
+        };
+
         const { data, error } = await supabase
             .from('orders')
-            .insert([orderPayload]);
+            .insert([databaseRecord]);
 
         if (error) {
             console.error("Erreur Supabase lors de l'insertion:", error);
-
-            // Gestion de repli si certaines colonnes (marque, modele, etc.) ne sont pas encore créées dans la table Supabase
-            if (error.code === '42703' || (error.message && error.message.includes('does not exist'))) {
-                console.warn("Certaines colonnes sont absentes dans la table 'orders'. Repli automatique sur 'order_details'...", error);
-                const fallbackPayload = {
-                    order_details: orderPayload,
-                    status: orderPayload.status || 'pending',
-                    created_at: orderPayload.created_at || new Date().toISOString()
-                };
-                const fallbackRes = await supabase.from('orders').insert([fallbackPayload]);
-                if (fallbackRes.error) {
-                    throw new Error(fallbackRes.error.message);
-                }
-                return fallbackRes.data;
-            }
-
             throw new Error(error.message);
         }
-        
+
         return data;
     };
 
