@@ -492,6 +492,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmModal = document.getElementById('confirm-modal');
     const orderForm = document.getElementById('order-form');
 
+    const setupContactFields = (methodId, containerId, emailInputId) => {
+        const method = document.getElementById(methodId);
+        const container = document.getElementById(containerId);
+        const emailInput = document.getElementById(emailInputId);
+        if (!method || !container || !emailInput) return;
+
+        const syncContactFields = () => {
+            const emailSelected = method.value === 'email';
+            container.style.display = emailSelected ? 'block' : 'none';
+            emailInput.required = emailSelected;
+            if (!emailSelected) emailInput.value = '';
+        };
+
+        method.addEventListener('change', syncContactFields);
+        method.form.addEventListener('reset', () => requestAnimationFrame(syncContactFields));
+        syncContactFields();
+    };
+
+    setupContactFields('order-contact-method', 'order-email-container', 'order-email-input');
+    setupContactFields('res-contact-method', 'res-email-container', 'res-email-input');
+
     document.getElementById('checkout-btn').addEventListener('click', () => {
         if(cart.length === 0) return;
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -641,11 +662,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const clientNom = formData.get('lastname') || "";
         const clientPrenom = formData.get('firstname') || "";
         const clientTelephone = formData.get('phone') || "";
-        const clientWhatsapp = formData.get('whatsapp') || "";
-        const clientEmail = formData.get('email') || "";
+        const moyenContact = formData.get('contact-method') || "";
+        const clientWhatsapp = moyenContact === 'whatsapp' ? clientTelephone : "";
+        const clientEmail = moyenContact === 'email' ? (formData.get('email') || "") : "";
         const clientVille = formData.get('city') || "";
+        const clientQuartier = formData.get('quartier') || "";
         const clientPays = formData.get('country') || "Burkina Faso";
-        const clientAdresse = formData.get('shipping-address') || formData.get('shipping-city') || "";
+        const clientAdresse = formData.get('shipping-address') || "";
+        const orderEmailInput = document.getElementById('order-email-input');
+        if (moyenContact === 'email' && (!clientEmail || !orderEmailInput.checkValidity())) {
+            orderEmailInput.reportValidity();
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = "Confirmer la commande";
+            return;
+        }
 
         // 3. Objet complet envoyé à Supabase avec colonnes produit et client
         const orderData = {
@@ -657,7 +687,10 @@ document.addEventListener('DOMContentLoaded', () => {
             email: clientEmail,
             pays: clientPays,
             ville: clientVille,
+            quartier: clientQuartier,
             adresse: clientAdresse,
+            lieu_livraison: clientAdresse,
+            moyen_contact: moyenContact,
 
             // Colonnes produit demandées
             marque: marque,
@@ -675,13 +708,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     whatsapp: clientWhatsapp,
                     email: clientEmail,
                     ville: clientVille,
+                    quartier: clientQuartier,
                     pays: clientPays
                 },
                 livraison: {
-                    ville: formData.get('shipping-city'),
-                    adresse: formData.get('shipping-address'),
-                    informations_complementaires: formData.get('shipping-notes') || "",
-                    mode_contact: formData.get('contact-method')
+                    ville: clientVille,
+                    quartier: clientQuartier,
+                    adresse: clientAdresse,
+                    lieu_livraison: clientAdresse,
+                    informations_complementaires: "",
+                    moyen_contact: moyenContact,
+                    mode_contact: moyenContact
                 },
                 produit: {
                     marque: marque,
@@ -771,11 +808,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const clientNom = formData.get('lastname') || "";
         const clientPrenom = formData.get('firstname') || "";
         const clientTelephone = formData.get('phone') || "";
-        const clientWhatsapp = formData.get('whatsapp') || "";
-        const clientEmail = formData.get('email') || "";
+        const moyenContact = formData.get('contact-method') || "";
+        const clientWhatsapp = moyenContact === 'whatsapp' ? clientTelephone : "";
+        const clientEmail = moyenContact === 'email' ? (formData.get('email') || "") : "";
         const clientVille = formData.get('city') || "";
+        const clientQuartier = formData.get('quartier') || "";
         const clientPays = formData.get('country') || "Burkina Faso";
-        const clientAdresse = formData.get('res-address') || formData.get('res-city') || "";
+        const clientAdresse = formData.get('res-address') || "";
+        if (!reservationForm.checkValidity()) {
+            reservationForm.reportValidity();
+            errorMsg.textContent = "Veuillez remplir les champs obligatoires et vérifier le format de votre e-mail.";
+            errorMsg.style.display = 'block';
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = "⭐ Envoyer ma réservation";
+            return;
+        }
 
         const orderData = {
             // Colonnes client
@@ -786,7 +833,10 @@ document.addEventListener('DOMContentLoaded', () => {
             email: clientEmail,
             pays: clientPays,
             ville: clientVille,
+            quartier: clientQuartier,
             adresse: clientAdresse,
+            lieu_livraison: clientAdresse,
+            moyen_contact: moyenContact,
 
             // Colonnes produit demandées
             marque: marque,
@@ -803,16 +853,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     whatsapp: clientWhatsapp,
                     email: clientEmail,
                     ville: clientVille,
+                    quartier: clientQuartier,
                     pays: clientPays
                 },
                 reservation_info: {
                     reservation_quantity: reservationQuantity,
                     reservation_size: reservationSize,
                     reservation_date: formData.get('res-date'),
-                    ville_recuperation: formData.get('res-city'),
-                    adresse: formData.get('res-address'),
-                    informations_complementaires: formData.get('res-notes'),
-                    mode_contact: formData.get('contact-method')
+                    ville_recuperation: clientVille,
+                    quartier: clientQuartier,
+                    adresse: clientAdresse,
+                    lieu_livraison: clientAdresse,
+                    informations_complementaires: formData.get('res-notes') || "",
+                    moyen_contact: moyenContact,
+                    mode_contact: moyenContact
                 },
                 produit: {
                     marque: marque,
@@ -946,4 +1000,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
