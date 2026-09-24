@@ -609,3 +609,43 @@ h1, h2, h3, h4, .font-heading {
 @media (max-width: 600px) { .hero-image { width: 100%; } }
 @media (max-width: 380px) { .hero-title { font-size: 2.2rem; } }
 @media (prefers-reduced-motion: reduce) { .hero-content { animation: none; } .hero-image { transition: none; } }
+
+
+/* Hero reveal: staggered copy and GASNAKER logo motion */
+.hero-content { animation: none; clip-path: none; }
+.hero-content > .hero-eyebrow,
+.hero-content > .hero-title,
+.hero-content > .hero-subtitle,
+.hero-content > .hero-actions { opacity: 1; transform: none; }
+.hero-eyebrow.reveal-up { transition-delay: 80ms; }
+.hero-title.reveal-up { transition-delay: 220ms; }
+.hero-subtitle.reveal-up { transition-delay: 380ms; }
+.hero-actions.reveal-up { transition-delay: 540ms; }
+.hero-title .text-accent {
+    background: linear-gradient(100deg, var(--c-blue-primary), #d62828, var(--c-blue-primary));
+    background-size: 220% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+.hero-title.is-visible .text-accent { animation: hero-color-flow 3.2s ease-in-out infinite alternate; }
+.hero-visual.reveal-scale { transition: opacity 850ms ease, transform 850ms cubic-bezier(0.22, 1, 0.36, 1); }
+.hero-visual.is-visible .hero-image { animation: hero-logo-enter 850ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-image { max-width: 540px; mix-blend-mode: multiply; filter: none; transform: rotate(-3deg); }
+.hero-image:hover { transform: rotate(-3deg) scale(1.025); }
+@keyframes hero-logo-enter {
+    from { opacity: 0; transform: translateY(24px) scale(0.94) rotate(-7deg); }
+    to { opacity: 1; transform: translateY(0) scale(1) rotate(-3deg); }
+}
+@keyframes hero-color-flow { from { background-position: 0% center; } to { background-position: 100% center; } }
+@media (max-width: 992px) { .hero-image { max-width: 460px; } }
+@media (prefers-reduced-motion: reduce) {
+    .hero-content, .hero-content > *, .hero-visual.reveal-scale { opacity: 1; clip-path: none; transform: none; transition: none; }
+    .hero-image, .hero-title .text-accent { animation: none !important; transition: none; }
+    .hero-image { transform: none; }
+    .hero-title .text-accent { color: var(--c-blue-primary); background: none; }
+}
+
+/* Staggered text entrance inside the hero */
+.hero-content > .reveal-up { opacity: 0; transform: translateY(22px); transition: opacity 650ms ease, transform 650ms cubic-bezier(0.22, 1, 0.36, 1); }
+.hero-content > .reveal-up.is-visible { opacity: 1; transform: translateY(0); }
