@@ -212,22 +212,19 @@
                     <input type="hidden" name="quantite" id="res-product-quantity">
                     <input type="hidden" name="prix_total" id="res-product-price">
 
-                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Informations personnelles</h4>
+                                        <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Vos coordonnées</h4>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-                        <input type="text" name="firstname" placeholder="Prénom *" required class="form-input">
-                        <input type="text" name="lastname" placeholder="Nom *" required class="form-input">
-                    </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-                        <input type="email" name="email" placeholder="Email *" required class="form-input">
-                        <input type="text" name="phone" placeholder="Téléphone *" required class="form-input">
+                        <input type="text" name="lastname" placeholder="Nom *" autocomplete="family-name" required class="form-input">
+                        <input type="text" name="firstname" placeholder="Prénom *" autocomplete="given-name" required class="form-input">
                     </div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
-                        <input type="text" name="whatsapp" placeholder="WhatsApp (ex: +226…) *" required class="form-input">
-                        <input type="text" name="city" placeholder="Ville *" required class="form-input">
+                        <input type="text" name="city" placeholder="Ville *" autocomplete="address-level2" required class="form-input">
+                        <input type="text" name="quartier" placeholder="Quartier *" required class="form-input">
                     </div>
-                    <input type="text" name="country" placeholder="Pays" value="Burkina Faso" class="form-input w-100" style="margin-bottom:1.5rem;">
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Lieu souhaité</h4>
+                    <textarea name="res-address" placeholder="Adresse ou indication précise *" autocomplete="street-address" required class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
 
-                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Informations de réservation</h4>
+<h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Informations de réservation</h4>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
                         <div>
                             <label style="font-size:0.8rem; color:var(--c-grey); margin-bottom:4px; display:block;">Nombre de paires *</label>
@@ -242,19 +239,19 @@
                         <label style="font-size:0.8rem; color:var(--c-grey); margin-bottom:4px; display:block;">Date souhaitée</label>
                         <input type="date" name="res-date" class="form-input w-100">
                     </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-                        <input type="text" name="res-city" placeholder="Ville de récupération/livraison" class="form-input">
-                        <input type="text" name="res-address" placeholder="Adresse / lieu" class="form-input">
-                    </div>
                     <textarea name="res-notes" placeholder="Informations complémentaires…" class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
 
-                    <h4 style="margin-bottom:0.5rem; color:var(--c-grey-dark);">Contact préféré</h4>
-                    <select name="contact-method" required class="form-input w-100" style="margin-bottom:2rem;">
-                        <option value="">Comment vous contacter ?</option>
-                        <option value="whatsapp">WhatsApp</option>
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Comment souhaitez-vous être contacté ?</h4>
+                    <input type="tel" name="phone" placeholder="Numéro de téléphone *" autocomplete="tel" required class="form-input w-100" style="margin-bottom:1rem;">
+                    <select name="contact-method" id="res-contact-method" required class="form-input w-100" style="margin-bottom:1rem;">
+                        <option value="">Choisissez WhatsApp, appel ou e-mail *</option>
+                        <option value="whatsapp">WhatsApp (sur ce numéro)</option>
                         <option value="telephone">Appel téléphonique</option>
-                        <option value="email">Email</option>
+                        <option value="email">E-mail</option>
                     </select>
+                    <div id="res-email-container" style="display:none; margin-bottom:1.5rem;">
+                        <input type="email" name="email" id="res-email-input" placeholder="Adresse e-mail *" autocomplete="email" class="form-input w-100">
+                    </div>
 
                     <button type="submit" class="btn btn-primary w-100" id="res-submit-btn"
                         style="background: linear-gradient(135deg, var(--c-blue-primary), var(--c-blue-dark));">
@@ -326,35 +323,31 @@
                     <input type="hidden" name="quantite" id="order-product-quantity">
                     <input type="hidden" name="prix_total" id="order-product-total-price">
 
-                    <h4 style="margin-bottom:0.5rem;">Informations Personnelles</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <input type="text" name="firstname" placeholder="Prénom" required class="form-input">
-                        <input type="text" name="lastname" placeholder="Nom" required class="form-input">
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Vos coordonnées</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <input type="text" name="lastname" placeholder="Nom *" autocomplete="family-name" required class="form-input">
+                        <input type="text" name="firstname" placeholder="Prénom *" autocomplete="given-name" required class="form-input">
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <input type="text" name="phone" placeholder="Téléphone" required class="form-input">
-                        <input type="text" name="whatsapp" placeholder="N° WhatsApp (ex: +226...)" required class="form-input">
-                    </div>
-                    <input type="email" name="email" placeholder="Adresse e-mail" required class="form-input w-100" style="margin-bottom: 1rem;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                        <input type="text" name="city" placeholder="Ville" required class="form-input">
-                        <input type="text" name="country" placeholder="Pays" value="Burkina Faso" required class="form-input">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+                        <input type="text" name="city" placeholder="Ville *" autocomplete="address-level2" required class="form-input">
+                        <input type="text" name="quartier" placeholder="Quartier *" required class="form-input">
                     </div>
 
-                    <h4 style="margin-bottom:0.5rem;">Livraison</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <input type="text" name="shipping-city" placeholder="Ville de livraison" required class="form-input">
-                        <input type="text" name="shipping-address" placeholder="Lieu de livraison" required class="form-input">
-                    </div>
-                    <textarea name="shipping-notes" placeholder="Informations complémentaires (quartier, repère, instructions...)" class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Adresse de livraison</h4>
+                    <textarea name="shipping-address" placeholder="Adresse ou indication précise du lieu de livraison *" autocomplete="street-address" required class="form-input w-100" rows="2" style="margin-bottom:1.5rem; resize:vertical;"></textarea>
 
-                    <h4 style="margin-bottom:0.5rem;">Contact</h4>
-                    <select name="contact-method" required class="form-input w-100" style="margin-bottom: 2rem;">
-                        <option value="">Comment souhaitez-vous être contacté ?</option>
-                        <option value="whatsapp">WhatsApp</option>
+                    <h4 style="margin-bottom:0.75rem; color:var(--c-grey-dark);">Comment souhaitez-vous être contacté ?</h4>
+                    <input type="tel" name="phone" placeholder="Numéro de téléphone *" autocomplete="tel" required class="form-input w-100" style="margin-bottom:1rem;">
+                    <select name="contact-method" id="order-contact-method" required class="form-input w-100" style="margin-bottom:1rem;">
+                        <option value="">Choisissez WhatsApp, appel ou e-mail *</option>
+                        <option value="whatsapp">WhatsApp (sur ce numéro)</option>
                         <option value="telephone">Appel téléphonique</option>
-                        <option value="email">Email</option>
+                        <option value="email">E-mail</option>
                     </select>
+                    <div id="order-email-container" style="display:none; margin-bottom:1.5rem;">
+                        <input type="email" name="email" id="order-email-input" placeholder="Adresse e-mail *" autocomplete="email" class="form-input w-100">
+                    </div>
+                    <p id="order-error-msg" role="alert" style="display:none; color:#c62828; font-size:0.9rem; margin:0 0 1rem;"></p>
 
                     <button type="submit" class="btn btn-primary w-100">Confirmer la commande</button>
                 </form>
